@@ -13,4 +13,9 @@
     },
     "editor.formatOnSave": true
   },
+  "[html][typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  },
 }

@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, NgbModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  constructor(private modalService: NgbModal) {}
+  constructor(
+    private modalService: NgbModal,
+    public keycloak: KeycloakService
+  ) {}
 
-  public open(modal: any): void {
+  public open(modal: NgbModalRef): void {
     this.modalService.open(modal);
   }
 }
