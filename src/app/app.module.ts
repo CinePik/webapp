@@ -9,6 +9,8 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './guard/auth.guard';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { ConfigInitService } from './init/config-init.service';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -18,13 +20,15 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     NgbModule,
     KeycloakAngularModule,
+    HttpClientModule,
   ],
   providers: [
+    ConfigInitService,
     {
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,
       multi: true,
-      deps: [KeycloakService],
+      deps: [KeycloakService, ConfigInitService],
     },
     AuthGuard,
   ],

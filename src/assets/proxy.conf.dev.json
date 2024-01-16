@@ -1,6 +1,6 @@
 {
   "/catalog": {
-      "target": "http://cinepik-keycloak:8080",
+      "target": "http://cinepik-catalog:3001",
       "secure": false,
       "logLevel": "debug",
       "changeOrigin": true
