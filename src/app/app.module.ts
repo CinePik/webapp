@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfigInitService } from './init/config-init.service';
+import { ApiModule as ApiModuleCatalog, Configuration } from './api/catalog';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -21,6 +22,11 @@ import { ConfigInitService } from './init/config-init.service';
     NgbModule,
     KeycloakAngularModule,
     HttpClientModule,
+    ApiModuleCatalog.forRoot(() => {
+      return new Configuration({
+        basePath: '/catalog',
+      });
+    }),
   ],
   providers: [
     ConfigInitService,

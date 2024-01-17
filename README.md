@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.10.
 
+## Swagger / OpenAPI
+
+To generate the DTOs and controller services from a server's OpenAPI specification, run `npm run generate:api:catalog`. This will generate the necessary files in `src/app/api`.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
