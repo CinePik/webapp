@@ -1,0 +1,60 @@
+<div class="card h-100 w-100">
+  @if (movie) {
+    <div class="image-container">
+      <img
+        [src]="movie.poster_path"
+        class="card-img-top"
+        alt="Movie poster image" />
+      @if (isHomeContentResponseDto(movie)) {
+        <div class="overlay">
+          <p class="overlay-text">{{ movie.overview }}</p>
+        </div>
+      }
+    </div>
+    <div class="card-body d-flex flex-column align-items-start">
+      <!-- Movie title -->
+      <h6 class="card-title mb-1">
+        @if (clickable) {
+          <a href="" (click)="openMoviePage($event)">
+            {{ movie.title }}
+          </a>
+        } @else {
+          {{ movie.title }}
+        }
+      </h6>
+      <!-- Footer movie info -->
+      <div class="align-self-stretch d-flex mb-2">
+        <div class="flex-grow-1">
+          @if (isHomeContentResponseDto(movie) && movie.release_date) {
+            <p class="card-text">
+              <small class="text-muted">
+                {{ movie.release_date | date: 'yyyy' }}
+              </small>
+            </p>
+          }
+        </div>
+        @if (isHomeContentResponseDto(movie)) {
+          <div class="flex-grow-0 d-flex align-items-center">
+            <span class="badge bg-dark">{{
+              movie.contentType | titlecase
+            }}</span>
+          </div>
+        }
+      </div>
+      <!-- Spacer -->
+      <!-- <div class="flex-grow-1"></div> -->
+      <!-- Buttons -->
+      <!-- <a href="#" class="btn btn-primary">Mark as watched</a> -->
+    </div>
+  } @else {
+    <div class="placeholder-container">
+      <img
+        src="./assets/placeholder.png"
+        class="card-img-top"
+        alt="Placeholder image" />
+    </div>
+    <div class="card-body">
+      <h6 class="card-title">Unknown title</h6>
+    </div>
+  }
+</div>

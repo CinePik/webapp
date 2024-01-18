@@ -1,0 +1,44 @@
+<main class="container-fluid position-relative py-4">
+  <div class="input-group flex-nowrap mb-5">
+    <span class="input-group-text">
+      <i class="bi bi-search"></i>
+    </span>
+    <input
+      type="text"
+      class="form-control form-control-lg"
+      placeholder="Search..."
+      [formControl]="searchInput" />
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+      (click)="searchInput.setValue('')">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="mt-5">
+      <app-loading></app-loading>
+    </div>
+  } @else {
+    @if (searchInput.value) {
+      @if (data.contents.length) {
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-1">
+          @for (movie of data.contents; track $index) {
+            <div class="col">
+              <app-movie [movie]="movie"></app-movie>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="text-center text-muted">
+          <h6>No results found</h6>
+        </div>
+      }
+    } @else {
+      <div class="text-center text-muted">
+        <h6>Start typing to search</h6>
+      </div>
+    }
+  }
+</main>

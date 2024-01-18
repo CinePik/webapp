@@ -1,9 +1,23 @@
 {
-  "/catalog": {
+  "/api-catalog": {
       "target": "http://localhost:3001/",
       "secure": false,
       "logLevel": "debug",
       "changeOrigin": false,
-      "pathRewrite": { "^/catalog": "" }
+      "pathRewrite": { "^/api-catalog": "" }
+  },
+  "/api-watchlist": {
+    "target": "http://localhost:3002/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": false,
+    "pathRewrite": { "^/api-watchlist": "" }
+  },
+  "/api-recommendation": {
+    "target": "http://localhost:3003/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": false,
+    "pathRewrite": { "^/api-recommendation": "" }
   }
 }

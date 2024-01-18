@@ -1,0 +1,10 @@
+export * from './default.service';
+import { DefaultService } from './default.service';
+export * from './default.serviceInterface';
+export * from './movies.service';
+import { MoviesService } from './movies.service';
+export * from './movies.serviceInterface';
+export * from './shows.service';
+import { ShowsService } from './shows.service';
+export * from './shows.serviceInterface';
+export const APIS = [DefaultService, MoviesService, ShowsService];

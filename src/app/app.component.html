@@ -16,13 +16,32 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a
+            class="nav-link"
+            aria-current="page"
+            routerLink=""
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Home</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">Search</a>
+          <a
+            class="nav-link"
+            aria-current="page"
+            routerLink="search"
+            routerLinkActive="active"
+            >Search</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">Watchlist</a>
+          <a
+            class="nav-link"
+            aria-current="page"
+            routerLink="watchlist"
+            routerLinkActive="active"
+            >Watchlist</a
+          >
         </li>
       </ul>
       <div class="flex-grow-1"></div>
@@ -48,5 +67,9 @@
     </div>
   </div>
 </nav>
+
+<app-toasts-container
+  aria-live="polite"
+  aria-atomic="true"></app-toasts-container>
 
 <router-outlet></router-outlet>

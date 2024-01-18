@@ -1,0 +1,23 @@
+<main class="container-fluid position-relative py-4">
+  @if (loading) {
+    <div class="mt-5">
+      <app-loading></app-loading>
+    </div>
+  } @else {
+    @for (section of data.sections; track $index) {
+      <div class="row mb-5">
+        <div class="col-12">
+          <h3>{{ section.title }}</h3>
+          <hr />
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-1">
+            @for (movie of section.content; track movie.id) {
+              <div class="col">
+                <app-movie [movie]="movie"></app-movie>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  }
+</main>

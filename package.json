@@ -9,7 +9,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "prettier": "npx prettier --write .",
-    "generate:api:catalog": "openapi-generator-cli generate -i http://localhost:3001/api-json -g typescript-angular -o src/app/api/catalog --additional-properties=withInterfaces=true"
+    "generate:api:catalog": "openapi-generator-cli generate -i http://localhost:3001/api-json -g typescript-angular -o src/app/api/catalog --additional-properties=withInterfaces=true",
+    "generate:api:watchlist": "openapi-generator-cli generate -i http://localhost:3002/api-json -g typescript-angular -o src/app/api/watchlist --additional-properties=withInterfaces=true",
+    "generate:api:recommendation": "openapi-generator-cli generate -i http://localhost:3003/api-json -g typescript-angular -o src/app/api/recommendation-engine --additional-properties=withInterfaces=true"
   },
   "private": true,
   "dependencies": {
