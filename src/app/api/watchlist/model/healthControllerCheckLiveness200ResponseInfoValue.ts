@@ -11,22 +11,10 @@
  */
 
 
-export interface AddShowWatchlistDto { 
-    /**
-     * Show identifier.
-     */
-    userId: string;
-    /**
-     * Show identifier.
-     */
-    showId: number;
-    /**
-     * Show episode.
-     */
-    episode: number;
-    /**
-     * Show season.
-     */
-    season: number;
+export interface HealthControllerCheckLiveness200ResponseInfoValue { 
+  [key: string]: string | any;
+
+
+    status?: string;
 }
 

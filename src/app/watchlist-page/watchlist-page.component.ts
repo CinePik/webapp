@@ -1,60 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
-import { MoviesService, ShowsService } from '../api/watchlist';
-import { firstValueFrom } from 'rxjs';
-import { ToastService } from '../toast.service';
+import {
+  MovieDetailWrapperResponseDto,
+  ShowDetailWrapperResponseDto,
+} from '../api/watchlist';
+import { Subject, takeUntil } from 'rxjs';
+import { WatchlistService } from '../watchlist.service';
 
 @Component({
   selector: 'app-watchlist-page',
   templateUrl: './watchlist-page.component.html',
   styleUrl: './watchlist-page.component.scss',
 })
-export class WatchlistPageComponent implements OnInit {
-  loadingMovies = true;
-  loadingShows = true;
-
+export class WatchlistPageComponent implements OnInit, OnDestroy {
   userProfile: KeycloakProfile = {};
-  watchedMovies: any[] = [];
-  watchedShows: any[] = [];
+  watchedMovies: MovieDetailWrapperResponseDto[] = [];
+  watchedShows: ShowDetailWrapperResponseDto[] = [];
 
   constructor(
     private keycloak: KeycloakService,
-    private toastService: ToastService,
-    private watchlistMoviesService: MoviesService,
-    private watchlistShowsService: ShowsService
+    public watchlistService: WatchlistService
   ) {}
 
   async ngOnInit() {
     this.userProfile = await this.keycloak.loadUserProfile();
+
+    this.watchlistService.loadWatchedMoviesAndShows(this.userProfile.id);
+    this.watchlistService.watchedMovies$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(movies => {
+        this.watchedMovies = movies;
+      });
+    this.watchlistService.watchedShows$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(shows => {
+        this.watchedShows = shows;
+      });
   }
 
-  getWatchedMovies() {
-    if (!this.userProfile.id) {
-      return;
-    }
-
-    firstValueFrom(
-      this.watchlistMoviesService.moviesControllerGetMovieWatchlist(
-        this.userProfile.id
-      )
-    )
-      .then(data => {
-        this.watchedMovies = data;
-        this.loadingMovies = false;
-        console.log(data);
-      })
-      .catch(err => {
-        this.toastService.show({
-          header: 'Error',
-          body: err.message,
-          classname: 'bg-danger text-light',
-        });
-        this.loadingMovies = false;
-      });
+  private destroyed$ = new Subject<void>();
+  ngOnDestroy() {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 }
 
-interface KeycloakProfile {
+export interface KeycloakProfile {
   id?: string;
   username?: string;
   email?: string;

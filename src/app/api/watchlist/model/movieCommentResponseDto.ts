@@ -19,9 +19,9 @@ export interface MovieCommentResponseDto {
     /**
      * User identifier.
      */
-    userId: number;
+    userId: string;
     /**
-     * Movie identifier.
+     * Cinepik movie identifier.
      */
     movieId: number;
     /**

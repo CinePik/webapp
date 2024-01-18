@@ -15,10 +15,10 @@ export interface AddMovieWatchlistDto {
     /**
      * User identifier.
      */
-    userId: number;
+    userId: string;
     /**
-     * Movie identifier.
+     * TMDB movie identifier.
      */
-    movieId: number;
+    tmdbMovieId: number;
 }
 

@@ -19,7 +19,7 @@ export interface ShowCommentResponseDto {
     /**
      * User identifier.
      */
-    userId: number;
+    userId: string;
     /**
      * Show identifier.
      */

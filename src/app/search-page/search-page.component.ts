@@ -9,6 +9,8 @@ import {
 import { CommonService, SearchResponseDto } from '../api/catalog';
 import { FormControl } from '@angular/forms';
 import { ToastService } from '../toast.service';
+import { KeycloakProfile } from '../watchlist-page/watchlist-page.component';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-search-page',
@@ -18,15 +20,19 @@ import { ToastService } from '../toast.service';
 export class SearchPageComponent implements OnInit, OnDestroy {
   loading = false;
 
+  userProfile: KeycloakProfile = {};
   searchInput = new FormControl();
   data: SearchResponseDto = { query: '', contents: [] };
 
   constructor(
+    private keycloak: KeycloakService,
     private catalogService: CommonService,
     private toastService: ToastService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.userProfile = await this.keycloak.loadUserProfile();
+
     this.searchInput.valueChanges
       .pipe(
         takeUntil(this.destroyed$),
@@ -51,7 +57,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
       })
       .catch(err => {
         this.toastService.show({
-          header: 'Error',
+          header: 'Error getting search results',
           body: err.message,
           classname: 'bg-danger text-light',
         });

@@ -9,24 +9,17 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { ShowEpisodeResponseDto } from './showEpisodeResponseDto';
 
 
-export interface AddShowWatchlistDto { 
+export interface ShowSeasonsResponseDto { 
     /**
-     * Show identifier.
-     */
-    userId: string;
-    /**
-     * Show identifier.
-     */
-    showId: number;
-    /**
-     * Show episode.
-     */
-    episode: number;
-    /**
-     * Show season.
+     * Season number.
      */
     season: number;
+    /**
+     * Season episodes.
+     */
+    episodes: Array<ShowEpisodeResponseDto>;
 }
 

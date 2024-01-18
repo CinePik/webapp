@@ -15,11 +15,11 @@ export interface CreateMovieCommentDto {
     /**
      * User identifier.
      */
-    userId: number;
+    userId: string;
     /**
-     * Movie identifier.
+     * TMDB Movie identifier.
      */
-    movieId: number;
+    tmdbMovieId: number;
     /**
      * Movie rating.
      */

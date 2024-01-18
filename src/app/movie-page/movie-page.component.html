@@ -11,8 +11,30 @@
         class="img-fluid limit-height"
         alt="Movie backdrop" />
       <div class="container-fluid py-2">
-        <!-- Title -->
-        <h3 class="mb-1">{{ title }}</h3>
+        <!-- Header -->
+        <div class="d-flex mb-1 align-items-center">
+          <!-- Title -->
+          <h3 class="m-0 flex-grow-1">{{ title }}</h3>
+
+          <!-- Buttons -->
+          @if (!isShow) {
+            @if (inWatchlist) {
+              <button
+                type="button"
+                class="btn btn-link"
+                (click)="removeMovieFromWatchlist()">
+                Remove from watchlist
+              </button>
+            } @else {
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="addMovieToWatchlist()">
+                Add to watchlist
+              </button>
+            }
+          }
+        </div>
 
         <!-- Release date & Rating -->
         <div class="mb-1 text-small text-muted">
@@ -42,19 +64,133 @@
           </div>
         </div>
 
-        <!-- Recommended Movies -->
+        <!-- Review -->
+        <div class="row mb-5">
+          <div class="col-12">
+            <h3>Review</h3>
+            <hr class="mb-1" />
+            <div class="row">
+              @if (movieReviews.length) {
+                <!-- Rating -->
+                <div class="mb-1">
+                  <ngb-rating
+                    [readonly]="true"
+                    [rate]="movieReviews[0].rating"
+                    [max]="5">
+                    <ng-template let-fill="fill" let-index="index">
+                      <i
+                        class="rating-star bi-star{{
+                          fill === 100 ? '-fill' : ''
+                        }}"
+                        [class.filled]="fill === 100"></i>
+                    </ng-template>
+                  </ngb-rating>
+                </div>
+                <div class="mb-3">
+                  <textarea
+                    readonly
+                    disabled
+                    class="form-control"
+                    [value]="movieReviews[0].comment"
+                    rows="4"></textarea>
+                </div>
+              } @else {
+                <div class="form-group">
+                  <!-- Rating -->
+                  <div class="mb-1">
+                    <ngb-rating
+                      [rate]="reviewForm.value.rating ?? 0"
+                      (rateChange)="reviewForm.patchValue({ rating: $event })"
+                      [max]="5">
+                      <ng-template let-fill="fill" let-index="index">
+                        <i
+                          class="rating-star bi-star{{
+                            fill === 100 ? '-fill' : ''
+                          }}"
+                          [class.filled]="fill === 100"></i>
+                      </ng-template>
+                    </ngb-rating>
+                  </div>
+
+                  <!-- Comment -->
+                  <div class="mb-3">
+                    <textarea
+                      class="form-control"
+                      [formControl]="reviewForm.controls.comment"
+                      rows="4"></textarea>
+                  </div>
+
+                  <!-- Submit button -->
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="addReview()"
+                    [disabled]="reviewForm.invalid">
+                    Submit
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+
         @if (!isShow && similar) {
+          <!-- Recommended Movies -->
           <div class="row mb-5">
             <div class="col-12">
               <h3>Recommended Movies</h3>
               <hr />
-              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-1">
+              <div
+                class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 row-cols-xl-8 row-cols-xxl-10 g-1">
                 @for (movie of similar; track movie.id) {
                   <div class="col">
                     <app-movie
+                      [userId]="userProfile.id"
                       [movie]="movie"
                       [clickable]="false"
-                      [objectHasContent]="false"></app-movie>
+                      [objectType]="'similar'"
+                      [inWatchlist]="
+                        checkIfWatched(movie.id, 'movie')
+                      "></app-movie>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        } @else if (isShow && seasons) {
+          <!-- Show's seasons and episodes -->
+          <div class="row mb-5">
+            <div class="col-12">
+              <h3>Seasons & Episodes</h3>
+              <hr />
+              <div class="form-group mb-2">
+                <select
+                  class="form-select form-select-lg"
+                  [(ngModel)]="selectedSeason">
+                  @for (seasonWrapper of seasons; track $index) {
+                    <option [value]="seasonWrapper.season">
+                      Season {{ seasonWrapper.season }}
+                    </option>
+                  }
+                </select>
+              </div>
+              <div
+                class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 row-cols-xl-8 row-cols-xxl-10 g-1">
+                @for (episode of episodes; track episode.id) {
+                  <div class="col">
+                    <app-movie
+                      [userId]="userProfile.id"
+                      [movie]="episode"
+                      [clickable]="false"
+                      [objectType]="'episode'"
+                      [inWatchlist]="
+                        checkIfWatched(
+                          episode.show_id,
+                          'show',
+                          episode.season_number,
+                          episode.episode_number
+                        )
+                      "></app-movie>
                   </div>
                 }
               </div>

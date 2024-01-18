@@ -11,22 +11,22 @@
  */
 
 
-export interface AddShowWatchlistDto { 
+export interface SimilarMovieDetailResponseDto { 
     /**
-     * Show identifier.
+     * Movie identifier.
      */
-    userId: string;
+    id: number;
     /**
-     * Show identifier.
+     * Url for the poster image.
      */
-    showId: number;
+    poster_path: string;
     /**
-     * Show episode.
+     * Movie title.
      */
-    episode: number;
+    title: string;
     /**
-     * Show season.
+     * Url for the backdrop image.
      */
-    season: number;
+    backdrop_path: string;
 }
 

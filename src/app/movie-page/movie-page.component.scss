@@ -4,3 +4,12 @@
   object-fit: cover;
   object-position: top;
 }
+
+.rating-star {
+  font-size: 2rem;
+  padding-right: 0.1rem;
+  color: rgba(var(--bs-dark-rgb), 0.3);
+}
+.filled {
+  color: rgba(var(--bs-dark-rgb), 1);
+}

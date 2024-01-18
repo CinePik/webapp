@@ -25,6 +25,8 @@ import { CreateMovieCommentDto } from '../model/createMovieCommentDto';
 // @ts-ignore
 import { MovieCommentResponseDto } from '../model/movieCommentResponseDto';
 // @ts-ignore
+import { MovieDetailWrapperResponseDto } from '../model/movieDetailWrapperResponseDto';
+// @ts-ignore
 import { UpdateMovieCommentDto } from '../model/updateMovieCommentDto';
 
 // @ts-ignore
@@ -240,16 +242,16 @@ export class MoviesService implements MoviesServiceInterface {
     /**
      * Returns all movie comments
      * Returns all movies comments for a specific movie.
-     * @param movieId 
+     * @param tmdbMovieId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public moviesControllerFindAllMovieComments(movieId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<MovieCommentResponseDto>>;
-    public moviesControllerFindAllMovieComments(movieId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<MovieCommentResponseDto>>>;
-    public moviesControllerFindAllMovieComments(movieId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<MovieCommentResponseDto>>>;
-    public moviesControllerFindAllMovieComments(movieId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (movieId === null || movieId === undefined) {
-            throw new Error('Required parameter movieId was null or undefined when calling moviesControllerFindAllMovieComments.');
+    public moviesControllerFindAllMovieComments(tmdbMovieId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<MovieCommentResponseDto>>;
+    public moviesControllerFindAllMovieComments(tmdbMovieId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<MovieCommentResponseDto>>>;
+    public moviesControllerFindAllMovieComments(tmdbMovieId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<MovieCommentResponseDto>>>;
+    public moviesControllerFindAllMovieComments(tmdbMovieId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (tmdbMovieId === null || tmdbMovieId === undefined) {
+            throw new Error('Required parameter tmdbMovieId was null or undefined when calling moviesControllerFindAllMovieComments.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -283,7 +285,7 @@ export class MoviesService implements MoviesServiceInterface {
             }
         }
 
-        let localVarPath = `/movies/comments/${this.configuration.encodeParam({name: "movieId", value: movieId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/movies/comments/${this.configuration.encodeParam({name: "tmdbMovieId", value: tmdbMovieId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<Array<MovieCommentResponseDto>>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -361,10 +363,10 @@ export class MoviesService implements MoviesServiceInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public moviesControllerGetMovieWatchlist(userId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public moviesControllerGetMovieWatchlist(userId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public moviesControllerGetMovieWatchlist(userId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public moviesControllerGetMovieWatchlist(userId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+    public moviesControllerGetMovieWatchlist(userId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<MovieDetailWrapperResponseDto>>;
+    public moviesControllerGetMovieWatchlist(userId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<MovieDetailWrapperResponseDto>>>;
+    public moviesControllerGetMovieWatchlist(userId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<MovieDetailWrapperResponseDto>>>;
+    public moviesControllerGetMovieWatchlist(userId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (userId === null || userId === undefined) {
             throw new Error('Required parameter userId was null or undefined when calling moviesControllerGetMovieWatchlist.');
         }
@@ -375,6 +377,7 @@ export class MoviesService implements MoviesServiceInterface {
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
+                'application/json'
             ];
             localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
@@ -400,7 +403,7 @@ export class MoviesService implements MoviesServiceInterface {
         }
 
         let localVarPath = `/movies/watchlist/${this.configuration.encodeParam({name: "userId", value: userId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<any>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<Array<MovieDetailWrapperResponseDto>>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -428,13 +431,6 @@ export class MoviesService implements MoviesServiceInterface {
         }
 
         let localVarHeaders = this.defaultHeaders;
-
-        let localVarCredential: string | undefined;
-        // authentication (bearer) required
-        localVarCredential = this.configuration.lookupCredential('bearer');
-        if (localVarCredential) {
-            localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
-        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -556,13 +552,6 @@ export class MoviesService implements MoviesServiceInterface {
         }
 
         let localVarHeaders = this.defaultHeaders;
-
-        let localVarCredential: string | undefined;
-        // authentication (bearer) required
-        localVarCredential = this.configuration.lookupCredential('bearer');
-        if (localVarCredential) {
-            localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
-        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {

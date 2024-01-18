@@ -3,16 +3,21 @@
     <div class="col-12">
       <h3>Movies</h3>
       <hr />
-      @if (loadingMovies) {
+      @if (watchlistService.loadingMoviesSubject | async) {
         <div class="mt-5">
           <app-loading></app-loading>
         </div>
       } @else {
-        @if (watchedMovies.length) {
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-1">
-            @for (movie of watchedMovies; track movie.id) {
+        @if (watchedMovies.length > 0) {
+          <div
+            class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 row-cols-xl-8 row-cols-xxl-10 g-1">
+            @for (movieWrapper of watchedMovies; track movieWrapper.movie.id) {
               <div class="col">
-                <app-movie [movie]="movie"></app-movie>
+                <app-movie
+                  [userId]="userProfile.id"
+                  [movie]="movieWrapper.movie"
+                  [inWatchlist]="true"
+                  [watchlistId]="movieWrapper.movie.id"></app-movie>
               </div>
             }
           </div>
@@ -29,16 +34,21 @@
     <div class="col-12">
       <h3>TV Shows</h3>
       <hr />
-      @if (loadingShows) {
+      @if (watchlistService.loadingShowsSubject | async) {
         <div class="mt-5">
           <app-loading></app-loading>
         </div>
       } @else {
-        @if (watchedShows.length) {
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-1">
-            @for (show of watchedShows; track show.id) {
+        @if (watchedShows.length > 0) {
+          <div
+            class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 row-cols-xl-8 row-cols-xxl-10 g-1">
+            @for (showWrapper of watchedShows; track showWrapper.show.id) {
               <div class="col">
-                <app-movie [movie]="show"></app-movie>
+                <app-movie
+                  [userId]="userProfile.id"
+                  [movie]="showWrapper.show"
+                  [inWatchlist]="true"
+                  [watchlistId]="showWrapper.show.id"></app-movie>
               </div>
             }
           </div>

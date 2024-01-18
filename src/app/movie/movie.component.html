@@ -2,7 +2,8 @@
   @if (movie) {
     <div class="image-container">
       <img
-        [src]="movie.poster_path"
+        [src]="imageUrl"
+        (error)="imageError($event)"
         class="card-img-top"
         alt="Movie poster image" />
       @if (isHomeContentResponseDto(movie)) {
@@ -13,13 +14,18 @@
     </div>
     <div class="card-body d-flex flex-column align-items-start">
       <!-- Movie title -->
-      <h6 class="card-title mb-1">
+      <h6 class="card-title mb-1 w-100">
         @if (clickable) {
-          <a href="" (click)="openMoviePage($event)">
+          <a
+            class="card-title-link w-100 d-inline-block text-truncate"
+            href=""
+            (click)="openMoviePage($event)">
             {{ movie.title }}
           </a>
         } @else {
-          {{ movie.title }}
+          <span class="w-100 d-inline-block text-truncate">
+            {{ movie.title }}
+          </span>
         }
       </h6>
       <!-- Footer movie info -->
@@ -42,9 +48,27 @@
         }
       </div>
       <!-- Spacer -->
-      <!-- <div class="flex-grow-1"></div> -->
+      <div class="flex-grow-1"></div>
       <!-- Buttons -->
-      <!-- <a href="#" class="btn btn-primary">Mark as watched</a> -->
+      @if (!isShow) {
+        @if (inWatchlist && watchlistId) {
+          <button
+            type="button"
+            class="btn btn-link"
+            (click)="removeMovieFromWatchlist()">
+            Remove from watchlist
+          </button>
+        } @else if (!inWatchlist) {
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="addMovieToWatchlist()">
+            Add to watchlist
+          </button>
+        } @else {
+          <span class="text-muted"> Added to watchlist </span>
+        }
+      }
     </div>
   } @else {
     <div class="placeholder-container">

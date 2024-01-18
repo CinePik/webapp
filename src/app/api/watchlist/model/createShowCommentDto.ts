@@ -15,7 +15,7 @@ export interface CreateShowCommentDto {
     /**
      * User identifier.
      */
-    userId: number;
+    userId: string;
     /**
      * Show identifier.
      */

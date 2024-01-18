@@ -16,6 +16,7 @@ import { Observable }                                        from 'rxjs';
 import { AddMovieWatchlistDto } from '../model/models';
 import { CreateMovieCommentDto } from '../model/models';
 import { MovieCommentResponseDto } from '../model/models';
+import { MovieDetailWrapperResponseDto } from '../model/models';
 import { UpdateMovieCommentDto } from '../model/models';
 
 
@@ -44,9 +45,9 @@ export interface MoviesServiceInterface {
     /**
      * Returns all movie comments
      * Returns all movies comments for a specific movie.
-     * @param movieId 
+     * @param tmdbMovieId 
      */
-    moviesControllerFindAllMovieComments(movieId: string, extraHttpRequestParams?: any): Observable<Array<MovieCommentResponseDto>>;
+    moviesControllerFindAllMovieComments(tmdbMovieId: string, extraHttpRequestParams?: any): Observable<Array<MovieCommentResponseDto>>;
 
     /**
      * Returns all movie recommendations
@@ -60,7 +61,7 @@ export interface MoviesServiceInterface {
      * Returns all movies on the user watchlist.
      * @param userId 
      */
-    moviesControllerGetMovieWatchlist(userId: string, extraHttpRequestParams?: any): Observable<{}>;
+    moviesControllerGetMovieWatchlist(userId: string, extraHttpRequestParams?: any): Observable<Array<MovieDetailWrapperResponseDto>>;
 
     /**
      * Deletes a movie comment

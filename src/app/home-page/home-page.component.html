@@ -9,10 +9,16 @@
         <div class="col-12">
           <h3>{{ section.title }}</h3>
           <hr />
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-1">
+          <div
+            class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 row-cols-xl-8 row-cols-xxl-10 g-1">
             @for (movie of section.content; track movie.id) {
               <div class="col">
-                <app-movie [movie]="movie"></app-movie>
+                <app-movie
+                  [userId]="userProfile.id"
+                  [movie]="movie"
+                  [inWatchlist]="
+                    checkIfWatched(movie.id, movie.contentType)
+                  "></app-movie>
               </div>
             }
           </div>

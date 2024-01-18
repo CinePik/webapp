@@ -16,6 +16,7 @@ import { Observable }                                        from 'rxjs';
 import { AddShowWatchlistDto } from '../model/models';
 import { CreateShowCommentDto } from '../model/models';
 import { ShowCommentResponseDto } from '../model/models';
+import { ShowDetailWrapperResponseDto } from '../model/models';
 import { UpdateShowCommentDto } from '../model/models';
 
 
@@ -52,18 +53,18 @@ export interface ShowsServiceInterface {
     showsControllerFindAll(userId: string, showId: string, season: string, episode: string, extraHttpRequestParams?: any): Observable<Array<ShowCommentResponseDto>>;
 
     /**
-     * Returns all shows on the watchlist
-     * Returns all shows on the user watchlist.
-     * @param userId 
-     */
-    showsControllerGetMovieWatchlist(userId: string, extraHttpRequestParams?: any): Observable<{}>;
-
-    /**
      * Returns all show recommendations
      * Returns all show recommendations based on user watchlist.
      * @param userId 
      */
     showsControllerGetShowRecommendations(userId: string, extraHttpRequestParams?: any): Observable<{}>;
+
+    /**
+     * Returns all shows on the watchlist
+     * Returns all shows on the user watchlist.
+     * @param userId 
+     */
+    showsControllerGetShowWatchlist(userId: string, extraHttpRequestParams?: any): Observable<Array<ShowDetailWrapperResponseDto>>;
 
     /**
      * Deletes a show comment

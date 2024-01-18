@@ -11,22 +11,22 @@
  */
 
 
-export interface AddShowWatchlistDto { 
+export interface PlatformResponseDto { 
     /**
-     * Show identifier.
+     * Android url.
      */
-    userId: string;
+    android?: string;
     /**
-     * Show identifier.
+     * Android tv url.
      */
-    showId: number;
+    android_tv?: string;
     /**
-     * Show episode.
+     * Ios url.
      */
-    episode: number;
+    ios: string;
     /**
-     * Show season.
+     * Web url.
      */
-    season: number;
+    web: string;
 }
 
