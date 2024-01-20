@@ -1,20 +1,20 @@
 {
   "/api-catalog": {
-      "target": "http://localhost:3001/",
+      "target": "http://cinepik.fun/catalog/",
       "secure": false,
       "logLevel": "debug",
       "changeOrigin": false,
       "pathRewrite": { "^/api-catalog": "" }
   },
   "/api-watchlist": {
-    "target": "http://localhost:3002/",
+    "target": "http://cinepik.fun/watchlist/",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": false,
     "pathRewrite": { "^/api-watchlist": "" }
   },
   "/api-recommendation": {
-    "target": "http://localhost:3003/",
+    "target": "http://cinepik.fun/recommendations/",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": false,

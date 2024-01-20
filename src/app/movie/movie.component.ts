@@ -7,6 +7,7 @@ import {
 } from '../api/catalog';
 import { Router } from '@angular/router';
 import { WatchlistService } from '../watchlist.service';
+import { MovieDetailResponseDto } from '../api/watchlist';
 
 @Component({
   selector: 'app-movie',
@@ -19,11 +20,13 @@ export class MovieComponent {
     | SimilarMovieDetailResponseDto
     | SearchItemResponseDto
     | ShowEpisodeResponseDto
+    | MovieDetailResponseDto
     | undefined = undefined;
 
   @Input() userId: string | undefined;
   @Input() clickable = true;
-  @Input() objectType: 'home' | 'similar' | 'episode' = 'home';
+  @Input() objectType: 'home' | 'watchlist' | 'similar' | 'episode' = 'home';
+  @Input() contentType = 'movie';
   @Input() inWatchlist = false;
   @Input() watchlistId: number | null = null;
   @Input() isShow = false;
@@ -54,9 +57,13 @@ export class MovieComponent {
       | SimilarMovieDetailResponseDto
       | SearchItemResponseDto
       | ShowEpisodeResponseDto
+      | MovieDetailResponseDto
   ): movie is HomeContentResponseDto {
     return (
-      movie && (this.objectType === 'home' || this.objectType === 'similar')
+      movie &&
+      (this.objectType === 'home' ||
+        this.objectType === 'similar' ||
+        this.objectType === 'watchlist')
     );
   }
 
@@ -66,8 +73,20 @@ export class MovieComponent {
       | SimilarMovieDetailResponseDto
       | SearchItemResponseDto
       | ShowEpisodeResponseDto
+      | MovieDetailResponseDto
   ): movie is ShowEpisodeResponseDto {
     return movie && this.objectType === 'episode';
+  }
+
+  isMovieDetailResponseDto(
+    movie:
+      | HomeContentResponseDto
+      | SimilarMovieDetailResponseDto
+      | SearchItemResponseDto
+      | ShowEpisodeResponseDto
+      | MovieDetailResponseDto
+  ): movie is MovieDetailResponseDto {
+    return movie && this.objectType === 'watchlist';
   }
 
   openMoviePage(event: Event) {
@@ -77,7 +96,16 @@ export class MovieComponent {
       return;
     }
 
-    if (this.isHomeContentResponseDto(this.movie)) {
+    if (this.isMovieDetailResponseDto(this.movie)) {
+      this.router.navigate(['/movie', this.movie.tmdbId], {
+        queryParams: { contentType: this.contentType },
+      });
+    } else if (this.isHomeContentResponseDto(this.movie)) {
+      // // Temp: fix issue where clicking on a movie in the watchlist
+      // let id = this.movie.id;
+      // if (this.movie.id === this.watchlistId) {
+      //   id = this.movie.tmdbMovieId;
+      // }
       this.router.navigate(['/movie', this.movie.id], {
         queryParams: { contentType: this.movie.contentType },
       });

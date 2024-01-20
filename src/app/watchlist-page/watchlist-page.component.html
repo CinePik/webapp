@@ -16,6 +16,8 @@
                 <app-movie
                   [userId]="userProfile.id"
                   [movie]="movieWrapper.movie"
+                  [objectType]="'watchlist'"
+                  [contentType]="'movie'"
                   [inWatchlist]="true"
                   [watchlistId]="movieWrapper.movie.id"></app-movie>
               </div>
@@ -47,6 +49,8 @@
                 <app-movie
                   [userId]="userProfile.id"
                   [movie]="showWrapper.show"
+                  [objectType]="'watchlist'"
+                  [contentType]="'show'"
                   [inWatchlist]="true"
                   [watchlistId]="showWrapper.show.id"></app-movie>
               </div>

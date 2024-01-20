@@ -1,5 +1,5 @@
 {
-  "KEYCLOAK_URL": "http://localhost:8080",
+  "KEYCLOAK_URL": "http://keycloak.cinepik.fun/",
   "KEYCLOAK_REALM": "cinepik",
   "KEYCLOAK_CLIENT_ID": "cinepikclient"
 }

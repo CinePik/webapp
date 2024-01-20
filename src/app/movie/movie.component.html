@@ -12,7 +12,7 @@
         </div>
       }
     </div>
-    <div class="card-body d-flex flex-column align-items-start">
+    <div class="card-body d-flex flex-column align-items-stretch">
       <!-- Movie title -->
       <h6 class="card-title mb-1 w-100">
         @if (clickable) {
@@ -29,7 +29,7 @@
         }
       </h6>
       <!-- Footer movie info -->
-      <div class="align-self-stretch d-flex mb-2">
+      <div class="d-flex mb-2">
         <div class="flex-grow-1">
           @if (isHomeContentResponseDto(movie) && movie.release_date) {
             <p class="card-text">
@@ -66,7 +66,7 @@
             Add to watchlist
           </button>
         } @else {
-          <span class="text-muted"> Added to watchlist </span>
+          <span class="text-center text-muted"> Added to watchlist </span>
         }
       }
     </div>
